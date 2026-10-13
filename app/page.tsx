@@ -9,6 +9,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import SectionDots from '@/components/SectionDots';
 import HeadlineReveal from '@/components/HeadlineReveal';
 import AmbientPause from '@/components/AmbientPause';
+import FilmTour from '@/components/FilmTour';
 import Hero from '@/components/Hero';
 import StageSections from '@/components/StageSections';
 import QuickButtonSection from '@/components/QuickButtonSection';
@@ -39,6 +40,7 @@ export default function Home() {
       <SectionDots />
       <HeadlineReveal />
       <AmbientPause />
+      <FilmTour />
 
       <main id="stage" className="relative w-full bg-[#030303]">
         <div className="fixed inset-0 z-0 pointer-events-none">

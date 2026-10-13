@@ -22,7 +22,7 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 type StagePose = Pose & { band: number; hotA: number; hotB: number };
 
 const DESKTOP: Record<'hero' | 'titanium' | 'display' | 'sensor', StagePose> = {
-  hero: { x: 0, y: -0.62, s: 0.86, rx: 0.22, ry: -0.6, rz: 0, band: 1, hotA: 0, hotB: 0 },
+  hero: { x: 0, y: -0.72, s: 0.84, rx: 0.22, ry: -0.6, rz: 0, band: 1, hotA: 0, hotB: 0 },
   titanium: { x: 0.75, y: -0.05, s: 1.05, rx: 0.12, ry: -1.18, rz: 0.04, band: 1, hotA: 1, hotB: 0 },
   display: { x: 0.85, y: 0, s: 1.75, rx: 0, ry: 0, rz: 0, band: 1, hotA: 0, hotB: 0 },
   sensor: { x: 0.9, y: 0, s: 1.45, rx: 0.12, ry: Math.PI + 0.35, rz: 0, band: 0, hotA: 0, hotB: 1 },

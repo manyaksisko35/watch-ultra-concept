@@ -19,6 +19,8 @@ An interactive, scroll-driven product page for the Samsung Galaxy Watch Ultra2, 
 - **Battery:** rings for 80 h and 60 h that fill as you scroll, plus the 800 mAh cell and fast charging.
 - **Colors:** Titanium Gray and Titanium Silver cases, five Sport Band colors (Black, Olive Green, Mocha, Orange, Blue) and a Hybrid Leather Band with stitched edges in Black, Olive Green, Gray, Camel and Sand. The band you pick also sets the accent color of the whole page and is remembered for your next visit.
 - **Ultra2 vs Watch Ultra:** headline gains and a side-by-side spec table against the first Ultra.
+- **Watch the film:** one button runs the whole page as an auto-scrolling tour you can pause or exit.
+- **Section menu:** a rail on the right shows where you are; hover it to see every section and jump to one.
 - **Galaxy ecosystem:** links to its sister projects, the [Galaxy S26 Ultra](https://s27-ultra-concept.vercel.app) and [Galaxy Buds4 Pro](https://buds4-pro-concept.vercel.app) concept sites.
 
 ## Screenshots
