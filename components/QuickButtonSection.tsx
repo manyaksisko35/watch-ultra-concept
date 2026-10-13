@@ -116,7 +116,7 @@ export default function QuickButtonSection() {
   const km = (elapsed * 0.0032).toFixed(2);
 
   return (
-    <section ref={sectionRef} id="quick" className="sg-ambient amb-orange relative z-10 bg-[#030303] px-6 lg:px-[8%] py-24 lg:py-32">
+    <section ref={sectionRef} id="quick" className="sg-ambient amb-red relative z-10 bg-[#030303] px-6 lg:px-[8%] py-24 lg:py-32">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
         <div>
           <p className="sg-eyebrow mb-3 lg:mb-5">Quick Button</p>

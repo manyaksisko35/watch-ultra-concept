@@ -28,7 +28,7 @@ export default function SectionDots() {
             <span
               className={`block rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'w-1.5 h-5 bg-gradient-to-b from-amber-300 to-orange-500'
+                  ? 'w-1.5 h-5 bg-[linear-gradient(180deg,var(--a1),var(--a2))]'
                   : 'w-1.5 h-1.5 bg-white/30 group-hover/dot:bg-white/80'
               }`}
             />

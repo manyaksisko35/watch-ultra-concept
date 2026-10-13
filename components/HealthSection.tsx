@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { useCanvasLoop } from '@/lib/useCanvasLoop';
 import { useReducedMotion } from '@/lib/useReducedMotion';
+import { getBand } from '@/lib/theme';
 
 const C = 2 * Math.PI * 80;
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
@@ -60,9 +61,10 @@ export default function HealthSection() {
       ctx.lineWidth = 2;
       ctx.lineJoin = 'round';
       const grad = ctx.createLinearGradient(0, 0, w, 0);
-      grad.addColorStop(0, 'rgba(255,77,46,0)');
-      grad.addColorStop(0.75, 'rgba(255,122,31,0.9)');
-      grad.addColorStop(1, '#ffd2a8');
+      const [a1, a2] = getBand().accent;
+      grad.addColorStop(0, `${a2}00`);
+      grad.addColorStop(0.75, a2);
+      grad.addColorStop(1, a1);
       ctx.strokeStyle = grad;
       ctx.beginPath();
       const span = 3.2;
@@ -116,8 +118,8 @@ export default function HealthSection() {
                 />
                 <defs>
                   <linearGradient id="energy" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stopColor="#ffc58f" />
-                    <stop offset="1" stopColor="#ff4d2e" />
+                    <stop offset="0" style={{ stopColor: 'var(--a1)' }} />
+                    <stop offset="1" style={{ stopColor: 'var(--a3)' }} />
                   </linearGradient>
                 </defs>
               </svg>

@@ -23,7 +23,7 @@ export const viewport: Viewport = { themeColor: '#030303' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${outfit.variable} antialiased selection:bg-orange-500/30`} suppressHydrationWarning>
+    <html lang="en" className={`${outfit.variable} antialiased selection:bg-[rgb(var(--a-rgb)/0.3)]`} suppressHydrationWarning>
       <body className="bg-[#030303] text-white" suppressHydrationWarning>
         {children}
       </body>

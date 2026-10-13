@@ -3,6 +3,7 @@
 import { useTexture } from '@react-three/drei';
 import { useMemo } from 'react';
 import * as THREE from 'three';
+import { DEFAULT_BAND } from '@/lib/theme';
 import { bezelTexture, buildWatch, type BezelColors, type WatchRig } from '@/lib/watchModel';
 
 export const FACE_URL = '/face/ultra.webp';
@@ -15,7 +16,6 @@ export type Variant = {
   name: string;
   swatch: string;
   caseColor: number;
-  bandColor: number;
   bezel: BezelColors;
   face: FaceMode;
 };
@@ -26,7 +26,6 @@ export const VARIANTS: Variant[] = [
     name: 'Titanium Gray',
     swatch: 'linear-gradient(135deg,#6a6b70,#3c3d41)',
     caseColor: 0x45464a,
-    bandColor: 0x3c423b,
     bezel: { bg: '#2a2b2f', tick: 'rgba(200,200,200,0.45)', marker: '#ff6a12', num: 'rgba(225,225,225,0.85)' },
     face: 'dark',
   },
@@ -35,7 +34,6 @@ export const VARIANTS: Variant[] = [
     name: 'Titanium Silver',
     swatch: 'linear-gradient(135deg,#e1e3e6,#9ea2a8)',
     caseColor: 0xb3b6bb,
-    bandColor: 0x8e9297,
     bezel: { bg: '#a9acb1', tick: 'rgba(40,42,46,0.5)', marker: '#ff6a12', num: 'rgba(30,32,36,0.85)' },
     face: 'dark',
   },
@@ -48,7 +46,7 @@ export type Rig = WatchRig & { pivot: THREE.Group; bandOpacity: number; face: TH
 export function useWatchRig(): Rig {
   const face = useTexture(FACE_URL);
   return useMemo(() => {
-    const rig = buildWatch(face, { caseColor: DEFAULT_VARIANT.caseColor, bandColor: DEFAULT_VARIANT.bandColor });
+    const rig = buildWatch(face, { caseColor: DEFAULT_VARIANT.caseColor, bandColor: DEFAULT_BAND.color });
     rig.root.scale.setScalar(MM);
     rig.root.position.z = 0.4 * MM;
     const pivot = new THREE.Group();
@@ -100,7 +98,6 @@ function recolorFace(src: THREE.Texture, mode: FaceMode) {
 
 export function applyVariant(rig: Rig, v: Variant) {
   rig.caseMat.color.setHex(v.caseColor);
-  rig.bandMats.forEach((m) => m.color.setHex(v.bandColor));
   let bezel = bezelCache.get(v.id);
   if (!bezel) {
     bezel = bezelTexture(v.bezel);
@@ -115,6 +112,10 @@ export function applyVariant(rig: Rig, v: Variant) {
   rig.displayMat.map = face;
   rig.displayMat.emissiveMap = face;
   rig.displayMat.emissiveIntensity = v.face === 'white' ? 0.35 : 0.6;
+}
+
+export function applyBand(rig: Rig, color: number) {
+  rig.bandMats.forEach((m) => m.color.setHex(color));
 }
 
 export function setBandOpacity(rig: Rig, op: number) {

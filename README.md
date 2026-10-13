@@ -17,7 +17,7 @@ An interactive, scroll-driven product page for the Samsung Galaxy Watch Ultra2, 
 - **Dual-frequency GPS:** a simulated run through a city, recorded with L1 only or with L1 + L5, so you can see the track drift between tall buildings.
 - **Built tough:** 10ATM, diving to 40 m, IP69K and materials in one switcher.
 - **Battery:** rings for 80 h and 60 h that fill as you scroll, plus the 800 mAh cell and fast charging.
-- **Colors:** Titanium Gray and Titanium Silver, each with its own bezel and band.
+- **Colors:** Titanium Gray and Titanium Silver cases with five Sport Band colors (Black, Olive Green, Mocha, Orange, Blue). The band you pick also sets the accent color of the whole page and is remembered for your next visit.
 - **Ultra2 vs Watch Ultra:** headline gains and a side-by-side spec table against the first Ultra.
 - **Galaxy ecosystem:** links to its sister projects, the [Galaxy S26 Ultra](https://s27-ultra-concept.vercel.app) and [Galaxy Buds4 Pro](https://buds4-pro-concept.vercel.app) concept sites.
 

@@ -52,7 +52,7 @@ export default function BatterySection() {
 
   return (
     <section ref={sectionRef} id="battery" className="relative z-10 h-[220svh] bg-[#030303]">
-      <div className="sg-ambient amb-orange sticky top-0 h-svh flex flex-col items-center justify-center gap-8 lg:gap-12 px-6 pt-16">
+      <div className="sg-ambient amb-accent sticky top-0 h-svh flex flex-col items-center justify-center gap-8 lg:gap-12 px-6 pt-16">
         <div className="text-center">
           <p className="sg-eyebrow mb-3 lg:mb-5">Battery</p>
           <h2 className="sg-title">
@@ -81,8 +81,8 @@ export default function BatterySection() {
                   />
                   <defs>
                     <linearGradient id={`bat-${r.id}`} x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0" stopColor="#ffc58f" />
-                      <stop offset="1" stopColor="#ff5a1f" />
+                      <stop offset="0" style={{ stopColor: 'var(--a1)' }} />
+                      <stop offset="1" style={{ stopColor: 'var(--a3)' }} />
                     </linearGradient>
                   </defs>
                 </svg>

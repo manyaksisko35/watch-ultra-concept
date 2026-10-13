@@ -3,14 +3,15 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { RimLight, SoftShadow, StudioEnv } from '@/components/StudioEnv';
-import { DEFAULT_VARIANT, VARIANTS, applyVariant, poseRig, useWatchRig, type Pose, type Variant } from '@/lib/watchRig';
+import { DEFAULT_VARIANT, VARIANTS, applyBand, applyVariant, poseRig, useWatchRig, type Pose, type Variant } from '@/lib/watchRig';
+import { BANDS, setBand, useBand, type Band } from '@/lib/theme';
 import { createSpin, stepSpin, useDragSpin } from '@/lib/dragSpin';
 import { prefersReducedMotion } from '@/lib/useReducedMotion';
 import { PRICE } from '@/lib/specs';
 
 const spin = createSpin();
 
-function Product({ variant }: { variant: Variant }) {
+function Product({ variant, band }: { variant: Variant; band: Band }) {
   const rig = useWatchRig();
   const invalidate = useThree((s) => s.invalidate);
   const turn = useRef(0);
@@ -19,8 +20,9 @@ function Product({ variant }: { variant: Variant }) {
 
   useEffect(() => {
     applyVariant(rig, variant);
+    applyBand(rig, band.color);
     invalidate();
-  }, [rig, variant, invalidate]);
+  }, [rig, variant, band, invalidate]);
 
   useFrame((_, rawDt) => {
     const dt = Math.min(rawDt, 0.1);
@@ -87,6 +89,7 @@ export default function ColorsSection() {
   }, []);
 
   const cur = VARIANTS.find((c) => c.id === variantId) ?? DEFAULT_VARIANT;
+  const band = useBand();
 
   return (
     <section ref={sectionRef} id="colors" className="sg-ambient amb-silver relative z-10 bg-[#030303] px-6 lg:px-[8%] py-24 lg:py-32">
@@ -111,7 +114,7 @@ export default function ColorsSection() {
               <ambientLight intensity={0.5} />
               <directionalLight position={[3, 4, 4]} intensity={2} />
               <Suspense fallback={null}>
-                <Product variant={cur} />
+                <Product variant={cur} band={band} />
               </Suspense>
             </Canvas>
           )}
@@ -120,8 +123,11 @@ export default function ColorsSection() {
 
         <div className="w-full max-w-sm">
           <p className="text-white/50 text-sm mb-1">Galaxy Watch Ultra2 · 47 mm</p>
-          <p className="text-3xl lg:text-4xl font-semibold mb-6">{cur.name}</p>
-          <Swatches label="Color" items={VARIANTS} value={variantId} onChange={setVariantId} />
+          <p className="text-3xl lg:text-4xl font-semibold">{cur.name}</p>
+          <p className="text-white/55 mb-6">with {band.name} Sport Band</p>
+          <Swatches label="Case" items={VARIANTS} value={variantId} onChange={setVariantId} />
+          <Swatches label="Sport Band" items={BANDS} value={band.id} onChange={setBand} />
+          <p className="-mt-3 mb-6 text-xs text-white/40">The band color also sets the color of this page.</p>
           <div className="flex items-end justify-between border-t border-white/10 pt-5">
             <div>
               <p className="text-white/50 text-sm">Price</p>

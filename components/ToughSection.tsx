@@ -37,7 +37,7 @@ const TABS = [
     unit: 'titanium',
     title: 'Titanium, sapphire, ceramic',
     text: 'A titanium case, a sapphire crystal on top and a ceramic and sapphire back.',
-    bg: 'radial-gradient(70% 60% at 50% 50%, rgba(255,106,18,0.25), transparent 70%)',
+    bg: 'radial-gradient(70% 60% at 50% 50%, rgb(var(--a-rgb) / 0.25), transparent 70%)',
   },
 ] as const;
 

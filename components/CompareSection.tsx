@@ -25,7 +25,7 @@ export default function CompareSection() {
   }, []);
 
   return (
-    <section ref={ref} id="compare" className="sg-ambient amb-orange relative z-10 bg-[#030303] px-6 lg:px-[8%] py-24 lg:py-32">
+    <section ref={ref} id="compare" className="sg-ambient amb-accent relative z-10 bg-[#030303] px-6 lg:px-[8%] py-24 lg:py-32">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10 lg:mb-14">
           <p className="sg-eyebrow mb-3 lg:mb-5">Compare</p>
@@ -52,7 +52,7 @@ export default function CompareSection() {
           {ROWS.map((r) => (
             <div key={r.label} data-row className="cmp-reveal grid grid-cols-[0.8fr_1fr_1fr] gap-x-3 lg:gap-x-6 py-3 lg:py-4 text-xs lg:text-base">
               <dt className="text-white/45 font-light">{r.label}</dt>
-              <dd className={r.up ? 'font-semibold text-orange-300' : 'font-medium'}>{r.ultra2}</dd>
+              <dd className={r.up ? 'font-semibold text-[var(--a1)]' : 'font-medium'}>{r.ultra2}</dd>
               <dd className="text-white/60 font-light">{r.ultra1}</dd>
             </div>
           ))}

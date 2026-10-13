@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+import { restoreBand } from '@/lib/theme';
 import Scene from '@/components/Scene';
 import HeroGlow from '@/components/HeroGlow';
 import Navbar from '@/components/Navbar';
@@ -20,6 +22,10 @@ import EcosystemSection from '@/components/EcosystemSection';
 import Specs from '@/components/Specs';
 
 export default function Home() {
+  useEffect(() => {
+    restoreBand();
+  }, []);
+
   return (
     <>
       <a

@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { useCanvasLoop } from '@/lib/useCanvasLoop';
 import { useReducedMotion } from '@/lib/useReducedMotion';
+import { getBand } from '@/lib/theme';
 
 const COLS = 6;
 const ROWS = 4;
@@ -107,7 +108,7 @@ export default function GpsSection() {
       const u = reduce ? 1 : ((t * 0.07) % 1.15) / 1.0;
       const upto = Math.min(1, u) * total;
       const amp = Math.min(w, h) * (dual ? 0.006 : 0.05);
-      ctx.strokeStyle = dual ? '#ff7a1f' : '#f43f5e';
+      ctx.strokeStyle = dual ? getBand().accent[1] : '#f43f5e';
       ctx.lineWidth = 3;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -130,7 +131,7 @@ export default function GpsSection() {
       ctx.beginPath();
       ctx.arc(hx, hy, 6, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = dual ? 'rgba(255,122,31,0.5)' : 'rgba(244,63,94,0.5)';
+      ctx.strokeStyle = dual ? `${getBand().accent[1]}80` : 'rgba(244,63,94,0.5)';
       ctx.lineWidth = 6;
       ctx.beginPath();
       ctx.arc(hx, hy, 11, 0, Math.PI * 2);
@@ -173,7 +174,7 @@ export default function GpsSection() {
               <i className="w-5 border-t-2 border-dashed border-white/40" /> Actual route
             </span>
             <span className="flex items-center gap-2">
-              <i className={`w-5 h-[3px] rounded ${dual ? 'bg-orange-500' : 'bg-rose-500'}`} /> Recorded track
+              <i className={`w-5 h-[3px] rounded ${dual ? 'bg-[var(--a2)]' : 'bg-rose-500'}`} /> Recorded track
             </span>
           </div>
         </div>

@@ -1,6 +1,13 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --a1: #e0e9d3;
+    --a2: #a4b98c;
+    --a3: #6d8259;
+    --a-rgb: 164 185 140;
+  }
+
   html,
   body {
     overflow-x: clip;
@@ -57,7 +64,7 @@ h2.sg-title-xl { font-size: clamp(2.6rem, 1.3rem + 5.6vw, 6.5rem); }
 }
 
 .sg-ai {
-  background: linear-gradient(90deg, #ffc58f 0%, #ff7a1f 50%, #ff4d2e 100%);
+  background: linear-gradient(90deg, var(--a1) 0%, var(--a2) 50%, var(--a3) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -72,7 +79,7 @@ h2.sg-title-xl { font-size: clamp(2.6rem, 1.3rem + 5.6vw, 6.5rem); }
 }
 .sg-card:hover {
   border-color: rgba(255, 255, 255, 0.26);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 18px 40px -20px rgba(255, 122, 31, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 18px 40px -20px rgb(var(--a-rgb) / 0.3);
   transform: translateY(-4px);
 }
 
@@ -100,7 +107,7 @@ h2.sg-title-xl { font-size: clamp(2.6rem, 1.3rem + 5.6vw, 6.5rem); }
 .sg-btn--ghost:hover { background: rgba(255, 255, 255, 0.1); box-shadow: none; }
 
 :focus-visible {
-  outline: 2px solid #ff8a3d;
+  outline: 2px solid var(--a2);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -187,13 +194,13 @@ a.rounded-full:focus-visible { border-radius: 999px; }
 .amb-silver { --amb-a: rgba(186, 230, 253, 0.12); --amb-b: rgba(148, 163, 184, 0.12); }
 .amb-teal   { --amb-a: rgba(45, 212, 191, 0.14); --amb-b: rgba(234, 179, 8, 0.08); }
 .amb-indigo { --amb-a: rgba(79, 70, 229, 0.16);  --amb-b: rgba(14, 165, 233, 0.10); }
-.amb-orange { --amb-a: rgba(255, 106, 18, 0.16); --amb-b: rgba(255, 61, 46, 0.08); }
-.amb-red    { --amb-a: rgba(239, 68, 68, 0.16);  --amb-b: rgba(255, 106, 18, 0.08); }
-.amb-green  { --amb-a: rgba(34, 197, 94, 0.12);  --amb-b: rgba(255, 106, 18, 0.08); }
+.amb-accent { --amb-a: rgb(var(--a-rgb) / 0.16); --amb-b: rgb(var(--a-rgb) / 0.07); }
+.amb-red    { --amb-a: rgba(239, 68, 68, 0.16);  --amb-b: rgb(var(--a-rgb) / 0.08); }
+.amb-green  { --amb-a: rgba(34, 197, 94, 0.12);  --amb-b: rgb(var(--a-rgb) / 0.08); }
 
 .hero-glow__ring {
-  background: conic-gradient(from 0deg, transparent 0deg, rgba(255, 138, 61, 0.6) 60deg, transparent 120deg,
-      rgba(255, 196, 140, 0.4) 200deg, transparent 260deg, rgba(255, 77, 46, 0.4) 320deg, transparent 360deg);
+  background: conic-gradient(from 0deg, transparent 0deg, rgb(var(--a-rgb) / 0.6) 60deg, transparent 120deg,
+      rgb(var(--a-rgb) / 0.35) 200deg, transparent 260deg, rgb(var(--a-rgb) / 0.45) 320deg, transparent 360deg);
   -webkit-mask: radial-gradient(closest-side, transparent 92%, #000 93%, #000 96%, transparent 97%);
   mask: radial-gradient(closest-side, transparent 92%, #000 93%, #000 96%, transparent 97%);
   filter: blur(2px);
@@ -201,7 +208,7 @@ a.rounded-full:focus-visible { border-radius: 999px; }
   will-change: transform;
 }
 .hero-glow__halo {
-  background: radial-gradient(closest-side, rgba(255, 122, 31, 0.14), rgba(255, 196, 140, 0.06) 55%, transparent 75%);
+  background: radial-gradient(closest-side, rgb(var(--a-rgb) / 0.14), rgb(var(--a-rgb) / 0.05) 55%, transparent 75%);
 }
 @keyframes hero-spin {
   to { transform: rotate(360deg); }
@@ -245,7 +252,7 @@ a.rounded-full:focus-visible { border-radius: 999px; }
   height: 12px;
   border-radius: 999px;
   background: #fff;
-  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18), 0 0 18px rgba(255, 122, 31, 0.7);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18), 0 0 18px rgb(var(--a-rgb) / 0.8);
 }
 .hotspot__line {
   position: absolute;
@@ -343,7 +350,7 @@ a.rounded-full:focus-visible { border-radius: 999px; }
   height: 4px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
-  accent-color: #ff6a12;
+  accent-color: var(--a2);
 }
 .sg-range::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -351,7 +358,7 @@ a.rounded-full:focus-visible { border-radius: 999px; }
   height: 18px;
   border-radius: 999px;
   background: #fff;
-  box-shadow: 0 0 0 4px rgba(255, 106, 18, 0.45);
+  box-shadow: 0 0 0 4px rgb(var(--a-rgb) / 0.45);
   cursor: pointer;
 }
 .sg-range::-moz-range-thumb {
@@ -360,7 +367,7 @@ a.rounded-full:focus-visible { border-radius: 999px; }
   border: 0;
   border-radius: 999px;
   background: #fff;
-  box-shadow: 0 0 0 4px rgba(255, 106, 18, 0.45);
+  box-shadow: 0 0 0 4px rgb(var(--a-rgb) / 0.45);
   cursor: pointer;
 }
 

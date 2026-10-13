@@ -11,7 +11,8 @@ import Lenis from 'lenis';
 import { setLenis } from '@/lib/lenis';
 import { prefersReducedMotion } from '@/lib/useReducedMotion';
 import { RimLight, StudioEnv } from '@/components/StudioEnv';
-import { poseRig, setBandOpacity, setNight, useWatchRig, type Pose, type Rig } from '@/lib/watchRig';
+import { applyBand, poseRig, setBandOpacity, setNight, useWatchRig, type Pose, type Rig } from '@/lib/watchRig';
+import { useBand } from '@/lib/theme';
 import { heroSpin, stepSpin } from '@/lib/dragSpin';
 import { stageNight } from '@/lib/stage';
 
@@ -89,10 +90,15 @@ function Watch() {
   const reduce = useMemo(() => prefersReducedMotion(), []);
   const frameRef = useRef<Pose>({ ...DESKTOP.hero });
   const night = useRef(0);
+  const band = useBand();
 
   useEffect(() => {
     document.documentElement.dataset.loaded = '1';
   }, []);
+
+  useEffect(() => {
+    applyBand(rig, band.color);
+  }, [rig, band]);
 
   useFrame((state, rawDt) => {
     const dt = Math.min(rawDt, 0.1);
@@ -194,7 +200,7 @@ export default function Scene() {
         <RimLight />
         <ambientLight intensity={0.5} />
         <directionalLight position={[3, 4, 4]} intensity={2} />
-        <directionalLight position={[-4, -2, -3]} intensity={1.0} color="#ffb98a" />
+        <directionalLight position={[-4, -2, -3]} intensity={1.0} color="#cfd9e6" />
         <Suspense fallback={null}>
           <Watch />
         </Suspense>
