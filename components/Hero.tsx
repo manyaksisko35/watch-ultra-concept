@@ -16,10 +16,10 @@ export default function Hero() {
     >
       <p className="hero-in sg-eyebrow mb-4 lg:mb-5">Galaxy AI ready</p>
       <h1 className="hero-in hero-in--2 sg-title text-[12vw] lg:text-[6.5vw]">
-        Galaxy Watch <strong className="sg-ai">Ultra</strong>
+        Galaxy Watch <strong className="sg-ai">Ultra2</strong>
       </h1>
       <p className="hero-in hero-in--3 mt-3 lg:mt-4 text-base lg:text-2xl font-light text-white/70">
-        Built for the extremes. Made for every day.
+        Thinner. Brighter. Built to go further.
       </p>
       <div className="hero-in hero-in--4 absolute bottom-8 flex flex-col items-center gap-3 text-white/50">
         <span className="sg-eyebrow !text-[0.65rem]">Drag to spin · Scroll</span>

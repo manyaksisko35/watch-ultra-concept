@@ -8,8 +8,8 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : 'http://localhost:3000';
 
-const title = 'Galaxy Watch Ultra | Concept';
-const description = 'Titanium, a Quick Button and dual-frequency GPS: an interactive 3D concept site for Galaxy Watch Ultra.';
+const title = 'Galaxy Watch Ultra2 | Concept';
+const description = 'Thinner titanium, a 5,000-nit display and an 800 mAh battery: an interactive 3D concept site for Galaxy Watch Ultra2.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

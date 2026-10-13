@@ -6,37 +6,37 @@ const TABS = [
   {
     id: 'water',
     label: 'Water',
-    value: '100',
-    unit: 'm',
-    title: '10ATM and IP68',
-    text: 'Rated for water pressure equal to 100 m, for swimming, snorkeling and water sports at the surface.',
+    value: '10',
+    unit: 'ATM',
+    title: 'Rated to 10ATM',
+    text: 'Water pressure equal to 100 m, for swimming, snorkeling and water sports at the surface.',
     bg: 'radial-gradient(80% 70% at 50% 100%, rgba(14,165,233,0.35), transparent 70%)',
   },
   {
-    id: 'altitude',
-    label: 'Altitude',
-    value: '9,000',
+    id: 'dive',
+    label: 'Dive',
+    value: '40',
     unit: 'm',
-    title: 'From -500 m to 9,000 m',
-    text: 'The barometer keeps working from below sea level to the height of the tallest peaks.',
-    bg: 'radial-gradient(80% 70% at 50% 0%, rgba(186,230,253,0.28), transparent 70%)',
+    title: 'Ready for recreational diving',
+    text: 'Swimproof to the EN13319 standard, with a Depth app that shows your depth, water temperature and dive time.',
+    bg: 'radial-gradient(90% 80% at 50% 110%, rgba(30,64,175,0.55), transparent 70%)',
   },
   {
-    id: 'temp',
-    label: 'Temperature',
-    value: '-20 to 55',
-    unit: '°C',
-    title: 'Desert heat to winter cold',
-    text: 'Designed to work from freezing mountain mornings to scorching afternoons.',
-    bg: 'linear-gradient(90deg, rgba(56,189,248,0.22), transparent 40%, transparent 60%, rgba(249,115,22,0.3))',
+    id: 'dust',
+    label: 'Dust and jets',
+    value: 'IP69K',
+    unit: '',
+    title: 'Sealed against dust and jets',
+    text: 'The top dust rating, plus protection against high-pressure, high-temperature water jets.',
+    bg: 'radial-gradient(70% 60% at 50% 40%, rgba(234,179,8,0.22), transparent 70%)',
   },
   {
-    id: 'shock',
-    label: 'Durability',
-    value: 'MIL-STD',
-    unit: '810H',
-    title: 'Tested to a military standard',
-    text: 'Tested against drops, shocks and other harsh conditions to the MIL-STD-810H standard.',
+    id: 'build',
+    label: 'Materials',
+    value: 'Grade 4',
+    unit: 'titanium',
+    title: 'Titanium, sapphire, ceramic',
+    text: 'A titanium case, a sapphire crystal on top and a ceramic and sapphire back.',
     bg: 'radial-gradient(70% 60% at 50% 50%, rgba(255,106,18,0.25), transparent 70%)',
   },
 ] as const;
@@ -84,8 +84,8 @@ export default function ToughSection() {
           </div>
         </div>
         <p className="mt-6 text-xs text-white/40 max-w-3xl mx-auto">
-          10ATM: not for scuba diving or high-velocity water. IP68: up to 1.5 m of fresh water for up to 30 minutes.
-          Passing MIL-STD-810H tests does not guarantee durability in every condition.
+          Ratings per Samsung and launch coverage. Diving use is limited to the stated standard and depth; follow
+          Samsung&apos;s guidance before using the watch underwater.
         </p>
       </div>
     </section>

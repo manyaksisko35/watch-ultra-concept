@@ -22,44 +22,26 @@ export type Variant = {
 
 export const VARIANTS: Variant[] = [
   {
-    id: 'blue',
-    name: 'Titanium Blue',
-    swatch: 'linear-gradient(135deg,#3d5a86,#22385e)',
-    caseColor: 0xb0b5bb,
-    bandColor: 0x243a63,
-    bezel: { bg: '#1e365e', tick: 'rgba(205,215,235,0.6)', major: '#ff6a12', marker: '#ff6a12' },
-    face: 'blue',
+    id: 'gray',
+    name: 'Titanium Gray',
+    swatch: 'linear-gradient(135deg,#6a6b70,#3c3d41)',
+    caseColor: 0x45464a,
+    bandColor: 0x3c423b,
+    bezel: { bg: '#2a2b2f', tick: 'rgba(200,200,200,0.45)', marker: '#ff6a12', num: 'rgba(225,225,225,0.85)' },
+    face: 'dark',
   },
   {
     id: 'silver',
     name: 'Titanium Silver',
-    swatch: 'linear-gradient(135deg,#d2ccc0,#a39d91)',
-    caseColor: 0xa29c90,
-    bandColor: 0x3b3f44,
-    bezel: { bg: '#141517', tick: 'rgba(215,215,215,0.6)', major: '#f2f2f2', marker: '#f2f2f2' },
+    swatch: 'linear-gradient(135deg,#e1e3e6,#9ea2a8)',
+    caseColor: 0xb3b6bb,
+    bandColor: 0x8e9297,
+    bezel: { bg: '#a9acb1', tick: 'rgba(40,42,46,0.5)', marker: '#ff6a12', num: 'rgba(30,32,36,0.85)' },
     face: 'dark',
-  },
-  {
-    id: 'gray',
-    name: 'Titanium Gray',
-    swatch: 'linear-gradient(135deg,#6a6b70,#3c3d41)',
-    caseColor: 0x3f4044,
-    bandColor: 0xf0701a,
-    bezel: { bg: '#141517', tick: 'rgba(210,210,210,0.55)', major: '#ff6a12', marker: '#ff6a12' },
-    face: 'dark',
-  },
-  {
-    id: 'white',
-    name: 'Titanium White',
-    swatch: 'linear-gradient(135deg,#f1f2f3,#c3c6ca)',
-    caseColor: 0xc3c6cb,
-    bandColor: 0xe3e1db,
-    bezel: { bg: '#d6d8dc', tick: 'rgba(110,115,122,0.7)', major: '#9fa3a9', marker: '#b9bcc1' },
-    face: 'white',
   },
 ];
 
-export const DEFAULT_VARIANT = VARIANTS[2];
+export const DEFAULT_VARIANT = VARIANTS[0];
 
 export type Rig = WatchRig & { pivot: THREE.Group; bandOpacity: number; face: THREE.Texture };
 

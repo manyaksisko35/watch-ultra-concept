@@ -18,9 +18,9 @@ function canvasTex(size: number, draw: Draw, srgb = true, h = size) {
   return t;
 }
 
-export type BezelColors = { bg: string; tick: string; major: string; marker: string };
+export type BezelColors = { bg: string; tick: string; marker: string; num: string };
 
-export const DEFAULT_BEZEL: BezelColors = { bg: '#131416', tick: 'rgba(210,210,210,0.55)', major: ORANGE, marker: ORANGE };
+export const DEFAULT_BEZEL: BezelColors = { bg: '#2a2b2f', tick: 'rgba(200,200,200,0.45)', marker: ORANGE, num: 'rgba(225,225,225,0.85)' };
 
 function drawBezel(ctx: CanvasRenderingContext2D, S: number, col: BezelColors = DEFAULT_BEZEL) {
   ctx.fillStyle = col.bg;
@@ -29,21 +29,31 @@ function drawBezel(ctx: CanvasRenderingContext2D, S: number, col: BezelColors = 
   const k = S / 44;
   ctx.save();
   ctx.translate(c, c);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = `600 ${1.05 * k}px ${FONT}`;
   for (let i = 1; i < 60; i++) {
     ctx.save();
     ctx.rotate((i / 60) * Math.PI * 2);
     const major = i % 5 === 0;
-    ctx.fillStyle = major ? col.major : col.tick;
-    const w = major ? 0.55 : 0.22;
-    const h = major ? 2.0 : 1.0;
-    ctx.fillRect((-w * k) / 2, -20.6 * k, w * k, h * k);
+    if (major) {
+      ctx.fillStyle = col.num;
+      ctx.save();
+      ctx.translate(0, -19.55 * k);
+      if (i > 15 && i < 45) ctx.rotate(Math.PI);
+      ctx.fillText(String(i).padStart(2, '0'), 0, 0);
+      ctx.restore();
+    } else {
+      ctx.fillStyle = col.tick;
+      ctx.fillRect((-0.2 * k) / 2, -20.75 * k, 0.2 * k, 0.6 * k);
+    }
     ctx.restore();
   }
   ctx.fillStyle = col.marker;
   ctx.beginPath();
-  ctx.moveTo(0, -18.4 * k);
-  ctx.lineTo(-1.1 * k, -20.4 * k);
-  ctx.lineTo(1.1 * k, -20.4 * k);
+  ctx.moveTo(0, -19.0 * k);
+  ctx.lineTo(-0.9 * k, -20.7 * k);
+  ctx.lineTo(0.9 * k, -20.7 * k);
   ctx.closePath();
   ctx.fill();
   ctx.restore();
@@ -94,7 +104,7 @@ function drawBack(ctx: CanvasRenderingContext2D, S: number) {
   ctx.fillStyle = 'rgba(210,215,220,0.55)';
   ctx.font = `600 ${S * 0.024}px ${FONT}`;
   ctx.textAlign = 'center';
-  const text = 'GALAXY WATCH ULTRA · TITANIUM · SAPPHIRE CRYSTAL · ';
+  const text = 'GALAXY WATCH ULTRA2 · TITANIUM · SAPPHIRE CRYSTAL · ';
   for (let i = 0; i < text.length; i++) {
     ctx.save();
     ctx.rotate((i / text.length) * Math.PI * 2);
@@ -248,7 +258,7 @@ export function buildWatch(faceTex: THREE.Texture, opts: { caseColor?: THREE.Col
 
   const W = 46.5;
   const H = 47.4;
-  const depth = 8.6;
+  const depth = 7.2;
   const bevel = 2.0;
   const shape = caseShape(W - bevel * 2, H - bevel * 2, 12.4, 13.0, 4.6);
   const caseGeo = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 3, curveSegments: 16 });
@@ -271,33 +281,33 @@ export function buildWatch(faceTex: THREE.Texture, opts: { caseColor?: THREE.Col
 
   const bezelTex = bezelTexture(DEFAULT_BEZEL);
   const bezelTop = new THREE.MeshPhysicalMaterial({ map: bezelTex, metalness: 0.4, roughness: 0.3, clearcoat: 0.9, clearcoatRoughness: 0.1, envMapIntensity: 0.5 });
-  root.add(ring(21.0, 17.7, 1.6, [bezelTop, polished], topZ - 0.3));
-  root.add(ring(21.25, 20.9, 1.2, polished, topZ - 0.4, 0.15));
-  root.add(ring(17.75, 17.2, 0.9, titaniumDark, topZ - 0.2, 0.1));
+  root.add(ring(21.0, 18.5, 0.9, [bezelTop, polished], topZ - 0.3, 0.3));
+  root.add(ring(21.25, 20.9, 1.0, polished, topZ - 0.4, 0.15));
+  root.add(ring(18.55, 18.0, 0.7, titaniumDark, topZ - 0.2, 0.1));
 
   faceTex.colorSpace = THREE.SRGBColorSpace;
   faceTex.anisotropy = 8;
   const displayMat = new THREE.MeshPhysicalMaterial({ map: faceTex, emissive: 0xffffff, emissiveMap: faceTex, emissiveIntensity: 0.6, roughness: 0.35, metalness: 0, specularIntensity: 0.2, clearcoat: 0.35, clearcoatRoughness: 0.08, envMapIntensity: 0.5 });
-  const display = new THREE.Mesh(new THREE.CircleGeometry(17.3, 128), displayMat);
-  display.position.z = topZ + 0.45;
+  const display = new THREE.Mesh(new THREE.CircleGeometry(18.05, 128), displayMat);
+  display.position.z = topZ + 0.3;
   root.add(display);
 
-  const sidePanel = new THREE.Mesh(new RoundedBoxGeometry(1.2, 28, 6.4, 3, 0.55), titanium);
+  const sidePanel = new THREE.Mesh(new RoundedBoxGeometry(1.2, 34, 5.4, 3, 0.5), titanium);
   sidePanel.position.set(W / 2 - 0.5, -0.5, -0.6);
   root.add(sidePanel);
-  const button = (y: number, kind: 'small' | 'quick' | 'pill') => {
+  const button = (y: number, kind: 'quick' | 'pill') => {
     const g = new THREE.Group();
     if (kind === 'pill') {
-      g.add(new THREE.Mesh(new RoundedBoxGeometry(2.4, 7.5, 3.6, 4, 1.1), titaniumDark));
+      g.add(new THREE.Mesh(new RoundedBoxGeometry(2.6, 6.6, 3.4, 4, 1.15), titaniumDark));
     } else {
-      const r = kind === 'quick' ? 2.9 : 1.9;
+      const r = 3.0;
       const cap = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 2.4, 40), titaniumDark);
       cap.rotation.z = Math.PI / 2;
       g.add(cap);
       const knurl = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.72, r * 0.72, 2.5, 24), polished);
       knurl.rotation.z = Math.PI / 2;
       g.add(knurl);
-      const rr = new THREE.Mesh(new THREE.TorusGeometry(r * 0.86, kind === 'quick' ? 0.55 : 0.35, 12, 48), orange);
+      const rr = new THREE.Mesh(new THREE.TorusGeometry(r * 0.84, 0.75, 12, 48), orange);
       rr.rotation.y = Math.PI / 2;
       rr.position.x = 1.25;
       g.add(rr);
@@ -305,9 +315,9 @@ export function buildWatch(faceTex: THREE.Texture, opts: { caseColor?: THREE.Col
     g.position.set(W / 2 + 0.3, y, -0.6);
     root.add(g);
   };
-  button(10.2, 'small');
-  button(-0.8, 'quick');
-  button(-11.4, 'pill');
+  button(12.6, 'pill');
+  button(0, 'quick');
+  button(-12.6, 'pill');
 
   const backTex = canvasTex(1024, drawBack);
   const backMat = new THREE.MeshPhysicalMaterial({ map: backTex, roughness: 0.18, metalness: 0.25, clearcoat: 1, clearcoatRoughness: 0.05 });
@@ -348,10 +358,10 @@ export function buildWatch(faceTex: THREE.Texture, opts: { caseColor?: THREE.Col
     false,
     'centripetal'
   );
-  const widthAt = (v: number) => 23 + 1.6 * Math.cos(2 * Math.PI * (v - 0.5));
+  const widthAt = () => 22.5;
   const band = new THREE.Group();
   root.add(band);
-  band.add(ribbon(path, widthAt, 4, 700, bandFace, bandEdge, 7.2));
+  band.add(ribbon(path, widthAt, 3.2, 500, bandFace, bandEdge, 9));
 
   const buckleMat = new THREE.MeshPhysicalMaterial({ color: 0x45474c, metalness: 0.9, roughness: 0.32, envMapIntensity: 0.8 });
   const t = 0.33;
@@ -391,7 +401,7 @@ export function buildWatch(faceTex: THREE.Texture, opts: { caseColor?: THREE.Col
     bandMats: [bandFace, bandEdge],
     displayMat,
     anchors: {
-      quick: new THREE.Vector3(W / 2 + 1.6, -0.8, -0.6),
+      quick: new THREE.Vector3(W / 2 + 1.6, 0, -0.6),
       crystal: new THREE.Vector3(-9, 9, topZ + 0.5),
       titanium: new THREE.Vector3(-W / 2 + 1.5, -14, 2),
       sensor: new THREE.Vector3(0, 0, backZ - 1.4),

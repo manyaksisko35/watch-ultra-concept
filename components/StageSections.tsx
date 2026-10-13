@@ -32,8 +32,8 @@ function NightToggle() {
 }
 
 const STATS = [
-  { value: '3,000', unit: 'nits', label: 'peak brightness' },
-  { value: '1.5', unit: '"', label: 'Super AMOLED, 480 × 480' },
+  { value: '5,000', unit: 'nits', label: 'peak brightness' },
+  { value: '1.52', unit: '"', label: 'Super AMOLED' },
 ];
 
 export default function StageSections() {
@@ -44,11 +44,11 @@ export default function StageSections() {
           <div className="max-w-md">
             <p className="sg-eyebrow mb-3 lg:mb-5">Design</p>
             <h2 className="sg-title">
-              Titanium, <strong>cushioned.</strong>
+              Titanium, <strong>slimmed down.</strong>
             </h2>
             <p className="sg-lead mt-4 lg:mt-6 max-lg:hidden">
-              A Grade 4 titanium case in a new cushion shape, a sapphire crystal up front and an orange Quick Button
-              you can find without looking.
+              The Grade 4 titanium case is 1.4 mm thinner at 10.7 mm, the bezel is slimmer around a bigger display,
+              and the reworked buttons are easier to find without looking.
             </p>
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function StageSections() {
               Bright by day. <strong>Red by night.</strong>
             </h2>
             <p className="sg-lead mt-4 lg:mt-6 max-lg:hidden">
-              Up to 3,000 nits keeps the face readable in direct sun. After dark, Night Mode turns the screen red so it
+              A bigger 1.52&quot; screen reaches up to 5,000 nits, so the face stays readable in direct sun. After dark, Night Mode turns the screen red so it
               doesn&apos;t ruin your night vision, and it can switch on by itself in low light.
             </p>
             <div className="mt-6 hidden lg:flex gap-8">
@@ -89,8 +89,8 @@ export default function StageSections() {
               One sensor. <strong>The whole picture.</strong>
             </h2>
             <p className="sg-lead mt-4 lg:mt-6 max-lg:hidden">
-              Optical heart rate, electrical heart signal and bioelectrical impedance share one sensor on the back,
-              feeding your Energy Score, sleep insights and more.
+              Heart rate, ECG and body composition share one sensor under a ceramic and sapphire back, feeding your
+              Energy Score, sleep insights and more.
             </p>
           </div>
         </div>

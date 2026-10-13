@@ -3,53 +3,51 @@ export const SPECS: { group: string; rows: [string, string][] }[] = [
     group: 'Design',
     rows: [
       ['Case', 'Titanium (Grade 4), 47 mm'],
-      ['Size', '47.4 × 47.1 × 12.1 mm'],
-      ['Weight', '60.5 g (without band)'],
-      ['Colors', 'Titanium Blue, Titanium Silver, Titanium Gray, Titanium White'],
+      ['Size', '47.4 × 47.1 × 10.7 mm'],
+      ['Weight', '61.5 g (without band)'],
+      ['Back', 'Ceramic and sapphire'],
+      ['Colors', 'Titanium Gray, Titanium Silver'],
     ],
   },
   {
     group: 'Display',
     rows: [
-      ['Panel', '1.5" Super AMOLED, 480 × 480'],
-      ['Brightness', 'Up to 3,000 nits'],
+      ['Panel', '1.52" Super AMOLED'],
+      ['Brightness', 'Up to 5,000 nits'],
       ['Glass', 'Sapphire crystal'],
-      ['Night Mode', 'Red display, can turn on automatically'],
+      ['Night Mode', 'Red display for low light'],
     ],
   },
   {
     group: 'Performance and battery',
     rows: [
-      ['Processor', 'Exynos W1000, 3 nm, 5 cores'],
+      ['Processor', 'Snapdragon Wear Elite, 3 nm, 5 cores'],
       ['Memory', '2 GB RAM, 64 GB storage'],
-      ['Battery', '590 mAh'],
-      ['Battery life', 'Up to 100 h (Power saving), up to 48 h (Exercise power saving)'],
+      ['Battery', '800 mAh'],
+      ['Battery life', 'Up to 80 h (AOD off), up to 60 h (AOD on)'],
+      ['Charging', 'Fast charging, about 40% in 30 min'],
     ],
   },
   {
     group: 'Durability',
     rows: [
-      ['Water', '10ATM, IP68'],
-      ['Military standard', 'MIL-STD-810H'],
-      ['Altitude', '-500 m to 9,000 m'],
-      ['Temperature', '-20 °C to 55 °C'],
+      ['Water', '10ATM, swimproof to EN13319 (40 m)'],
+      ['Dust and jets', 'IP69K'],
     ],
   },
   {
     group: 'Sensors',
-    rows: [
-      ['Health', 'BioActive Sensor (optical HR, electrical heart signal, BIA)'],
-      ['Other', 'Temperature, accelerometer, barometer, gyro, geomagnetic, light'],
-    ],
+    rows: [['Health', 'BioActive Sensor (heart rate, ECG, body composition)']],
   },
   {
     group: 'Connectivity',
     rows: [
       ['Network', 'LTE'],
-      ['Wireless', 'Bluetooth 5.3, Wi-Fi 2.4 / 5 GHz, NFC'],
-      ['Location', 'Dual-frequency GPS (L1 + L5), Galileo, GLONASS, BeiDou'],
+      ['Wireless', 'Bluetooth 6.0, Wi-Fi, NFC'],
+      ['Location', 'Dual-frequency GPS (L1 + L5)'],
+      ['Software', 'Wear OS 7 with One UI Watch'],
     ],
   },
 ];
 
-export const PRICE = '$649.99';
+export const PRICE = '$699.99';

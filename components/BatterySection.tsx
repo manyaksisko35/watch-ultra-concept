@@ -3,14 +3,14 @@
 import { useEffect, useRef } from 'react';
 
 const RINGS = [
-  { id: 'saving', hours: 100, label: 'Power saving mode', note: 'up to' },
-  { id: 'exercise', hours: 48, label: 'Exercise power saving', note: 'up to' },
+  { id: 'off', hours: 80, label: 'Always On Display off', note: 'up to' },
+  { id: 'on', hours: 60, label: 'Always On Display on', note: 'up to' },
 ];
 
 const FACTS = [
-  { value: '590 mAh', label: 'battery' },
-  { value: '3 nm', label: 'Exynos W1000, 5 cores' },
-  { value: '64 GB', label: 'storage, 2 GB RAM' },
+  { value: '800 mAh', label: 'battery, up from 590' },
+  { value: '~40%', label: 'in about 30 min, fast charging' },
+  { value: '3 nm', label: 'Snapdragon Wear Elite' },
 ];
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
@@ -32,7 +32,7 @@ export default function BatterySection() {
       const e = k * k * (3 - 2 * k);
       RINGS.forEach((r, i) => {
         const arc = arcRefs.current[i];
-        if (arc) arc.style.strokeDashoffset = String(C * (1 - (r.hours / 100) * e));
+        if (arc) arc.style.strokeDashoffset = String(C * (1 - (r.hours / 80) * e));
         const n = numRefs.current[i];
         if (n) n.textContent = String(Math.round(r.hours * e));
       });
@@ -56,7 +56,7 @@ export default function BatterySection() {
         <div className="text-center">
           <p className="sg-eyebrow mb-3 lg:mb-5">Battery</p>
           <h2 className="sg-title">
-            Up to <strong className="sg-ai">100 hours</strong> on a charge.
+            Up to <strong className="sg-ai">80 hours</strong> on a charge.
           </h2>
         </div>
         <div className="flex gap-6 lg:gap-20">
@@ -113,8 +113,8 @@ export default function BatterySection() {
           ))}
         </div>
         <p className="text-[0.65rem] lg:text-xs text-white/45 text-center max-w-xl">
-          Battery figures per Samsung, measured in the stated modes. Actual results vary with settings, usage and
-          environment.
+          Battery figures per Samsung, in normal use. Fast charging needs a compatible charger. Actual results vary with
+          settings, usage and environment.
         </p>
       </div>
     </section>

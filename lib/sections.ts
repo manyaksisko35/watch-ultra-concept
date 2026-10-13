@@ -15,7 +15,7 @@ export const SECTIONS: Section[] = [
   { id: 'tough', label: 'Built tough' },
   { id: 'battery', label: 'Battery' },
   { id: 'colors', label: 'Colors' },
-  { id: 'compare', label: 'vs Watch9' },
+  { id: 'compare', label: 'vs Watch Ultra' },
   { id: 'ecosystem', label: 'Galaxy ecosystem' },
   { id: 'specs', label: 'Specs' },
 ];

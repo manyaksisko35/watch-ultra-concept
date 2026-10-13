@@ -6,7 +6,7 @@ export default function Specs() {
       <div className="max-w-6xl mx-auto">
         <p className="sg-eyebrow mb-3 lg:mb-5">Specs</p>
         <h2 className="sg-title mb-10 lg:mb-16">
-          Galaxy Watch <strong>Ultra</strong>
+          Galaxy Watch <strong>Ultra2</strong>
         </h2>
         <div className="grid md:grid-cols-2 gap-x-16 gap-y-10">
           {SPECS.map((g) => (
@@ -24,7 +24,7 @@ export default function Specs() {
           ))}
         </div>
         <p className="mt-8 text-xs text-white/40 max-w-3xl">
-          Specifications from Samsung&apos;s Galaxy Watch Ultra announcement and product pages. Some features need a
+          Specifications from Samsung&apos;s Galaxy Watch Ultra2 announcement and product pages. Some features need a
           compatible Galaxy phone.
         </p>
 

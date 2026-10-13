@@ -37,9 +37,9 @@ const MOBILE: typeof DESKTOP = {
 const pose: StagePose = { ...DESKTOP.hero };
 
 const HOTSPOTS = [
-  { key: 'crystal', group: 'hotA', title: 'Sapphire crystal', text: 'Scratch-resistant glass over a 3,000-nit display.' },
+  { key: 'crystal', group: 'hotA', title: 'Sapphire crystal', text: 'Scratch-resistant glass over a 5,000-nit display.' },
   { key: 'quick', group: 'hotA', title: 'Quick Button', text: 'Start a workout, or hold for the emergency siren.' },
-  { key: 'titanium', group: 'hotA', title: 'Grade 4 titanium', text: 'A light, tough case built for the outdoors.' },
+  { key: 'titanium', group: 'hotA', title: 'Grade 4 titanium', text: 'Now 1.4 mm thinner, with a bigger battery inside.' },
   { key: 'sensor', group: 'hotB', title: 'BioActive Sensor', text: 'Heart rate, ECG and body composition in one.' },
 ] as const;
 

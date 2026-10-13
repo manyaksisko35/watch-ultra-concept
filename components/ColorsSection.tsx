@@ -119,7 +119,7 @@ export default function ColorsSection() {
         </div>
 
         <div className="w-full max-w-sm">
-          <p className="text-white/50 text-sm mb-1">Galaxy Watch Ultra · 47 mm</p>
+          <p className="text-white/50 text-sm mb-1">Galaxy Watch Ultra2 · 47 mm</p>
           <p className="text-3xl lg:text-4xl font-semibold mb-6">{cur.name}</p>
           <Swatches label="Color" items={VARIANTS} value={variantId} onChange={setVariantId} />
           <div className="flex items-end justify-between border-t border-white/10 pt-5">
