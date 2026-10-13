@@ -21,7 +21,7 @@ An interactive, scroll-driven product page for the Samsung Galaxy Watch Ultra2, 
 - **Ultra2 vs Watch Ultra:** headline gains and a side-by-side spec table against the first Ultra.
 - **Watch the film:** one button runs the whole page as an auto-scrolling tour you can pause or exit.
 - **Section menu:** a rail on the right shows where you are; hover it to see every section and jump to one.
-- **Galaxy ecosystem:** links to its sister projects, the [Galaxy S26 Ultra](https://s27-ultra-concept.vercel.app) and [Galaxy Buds4 Pro](https://buds4-pro-concept.vercel.app) concept sites.
+- **Galaxy ecosystem:** links to its sister projects, the [Galaxy S26 Ultra](https://s26-ultra-concept.vercel.app) and [Galaxy Buds4 Pro](https://buds4-pro-concept.vercel.app) concept sites.
 
 ## Screenshots
 
