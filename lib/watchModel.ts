@@ -125,6 +125,34 @@ function drawBuckleText(ctx: CanvasRenderingContext2D, W: number, H: number) {
   ctx.fillText('SAMSUNG', W / 2, H / 2 + 1);
 }
 
+function leatherTexture() {
+  const t = canvasTex(256, (ctx, S) => {
+    ctx.fillStyle = '#d9d9d9';
+    ctx.fillRect(0, 0, S, S);
+    let seed = 7;
+    const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    for (let i = 0; i < 2600; i++) {
+      const v = 200 + Math.floor(rnd() * 40);
+      ctx.fillStyle = `rgb(${v},${v},${v})`;
+      ctx.beginPath();
+      ctx.arc(rnd() * S, rnd() * S, 0.6 + rnd() * 1.6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    for (const x of [S * 0.075, S * 0.925]) {
+      ctx.fillStyle = 'rgba(0,0,0,0.35)';
+      ctx.fillRect(x - S * 0.012, 0, S * 0.024, S);
+      ctx.fillStyle = '#f2f2f2';
+      for (let y = 0; y < S; y += S / 8) {
+        ctx.beginPath();
+        ctx.roundRect(x - S * 0.009, y + S * 0.015, S * 0.018, S / 8 - S * 0.04, S * 0.009);
+        ctx.fill();
+      }
+    }
+  });
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
+}
+
 function holeTexture() {
   return canvasTex(
     256,
@@ -241,7 +269,10 @@ export type WatchRig = {
   caseMat: THREE.MeshPhysicalMaterial;
   bezelMat: THREE.MeshPhysicalMaterial;
   band: THREE.Group;
+  sportBand: THREE.Group;
+  leatherBand: THREE.Group;
   bandMats: THREE.MeshStandardMaterial[];
+  leatherMats: THREE.MeshStandardMaterial[];
   displayMat: THREE.MeshPhysicalMaterial;
   anchors: Record<'quick' | 'crystal' | 'titanium' | 'sensor' | 'band', THREE.Vector3>;
 };
@@ -361,7 +392,14 @@ export function buildWatch(faceTex: THREE.Texture, opts: { caseColor?: THREE.Col
   const widthAt = () => 22.5;
   const band = new THREE.Group();
   root.add(band);
-  band.add(ribbon(path, widthAt, 3.2, 500, bandFace, bandEdge, 9));
+  const sportBand = ribbon(path, widthAt, 3.2, 500, bandFace, bandEdge, 9);
+  band.add(sportBand);
+  const leather = leatherTexture();
+  const leatherFace = new THREE.MeshStandardMaterial({ color: bandColor, map: leather, bumpMap: leather, bumpScale: 0.6, roughness: 0.7, metalness: 0, envMapIntensity: 0.25, side: THREE.DoubleSide });
+  const leatherEdge = new THREE.MeshStandardMaterial({ color: bandColor, roughness: 0.75, metalness: 0, envMapIntensity: 0.2, side: THREE.DoubleSide });
+  const leatherBand = ribbon(path, widthAt, 3.6, 500, leatherFace, leatherEdge, 9);
+  leatherBand.visible = false;
+  band.add(leatherBand);
 
   const buckleMat = new THREE.MeshPhysicalMaterial({ color: 0x45474c, metalness: 0.9, roughness: 0.32, envMapIntensity: 0.8 });
   const t = 0.33;
@@ -398,7 +436,10 @@ export function buildWatch(faceTex: THREE.Texture, opts: { caseColor?: THREE.Col
     caseMat: titanium,
     bezelMat: bezelTop,
     band,
+    sportBand,
+    leatherBand,
     bandMats: [bandFace, bandEdge],
+    leatherMats: [leatherFace, leatherEdge],
     displayMat,
     anchors: {
       quick: new THREE.Vector3(W / 2 + 1.6, 0, -0.6),

@@ -3,7 +3,7 @@
 import { useTexture } from '@react-three/drei';
 import { useMemo } from 'react';
 import * as THREE from 'three';
-import { DEFAULT_BAND } from '@/lib/theme';
+import { DEFAULT_BAND, type Band } from '@/lib/theme';
 import { bezelTexture, buildWatch, type BezelColors, type WatchRig } from '@/lib/watchModel';
 
 export const FACE_URL = '/face/ultra.webp';
@@ -114,8 +114,11 @@ export function applyVariant(rig: Rig, v: Variant) {
   rig.displayMat.emissiveIntensity = v.face === 'white' ? 0.35 : 0.6;
 }
 
-export function applyBand(rig: Rig, color: number) {
-  rig.bandMats.forEach((m) => m.color.setHex(color));
+export function applyBand(rig: Rig, band: Band) {
+  const leather = band.kind === 'leather';
+  rig.sportBand.visible = !leather;
+  rig.leatherBand.visible = leather;
+  (leather ? rig.leatherMats : rig.bandMats).forEach((m) => m.color.setHex(band.color));
 }
 
 export function setBandOpacity(rig: Rig, op: number) {

@@ -97,7 +97,7 @@ function Watch() {
   }, []);
 
   useEffect(() => {
-    applyBand(rig, band.color);
+    applyBand(rig, band);
   }, [rig, band]);
 
   useFrame((state, rawDt) => {
