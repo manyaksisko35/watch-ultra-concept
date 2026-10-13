@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { BUDS_SITE, S26_SITE } from '@/lib/links';
+import { BUDS_SITE, S26_SITE, RING_SITE } from '@/lib/links';
 
 const SITES = [
   {
@@ -15,6 +15,13 @@ const SITES = [
     name: 'Galaxy Buds4 Pro',
     text: 'Switch noise control right from the watch.',
     glow: 'radial-gradient(55% 60% at 50% 55%, rgba(210, 222, 240, 0.18), transparent 72%)',
+  },
+  {
+    href: RING_SITE,
+    img: '/ecosystem/galaxy-ring-product.webp',
+    name: 'Galaxy Ring',
+    text: 'Sleep data from your finger, workouts from your wrist.',
+    glow: 'radial-gradient(55% 60% at 50% 55%, rgba(217, 178, 106, 0.22), transparent 72%)',
   },
 ];
 
@@ -32,7 +39,7 @@ export default function EcosystemSection() {
         <h2 className="sg-title max-w-3xl">
           Better <strong className="sg-ai">together.</strong>
         </h2>
-        <div className="mt-10 lg:mt-14 grid md:grid-cols-2 gap-4 lg:gap-6">
+        <div className="mt-10 lg:mt-14 grid md:grid-cols-3 gap-4 lg:gap-6">
           {SITES.map((s) => (
             <a
               key={s.name}
@@ -47,7 +54,7 @@ export default function EcosystemSection() {
                   alt={s.name}
                   fill
                   sizes="(min-width: 768px) 45vw, 90vw"
-                  className="object-contain p-6 lg:p-10 transition-transform duration-700 group-hover:scale-[1.04]"
+                  className="object-contain p-6 lg:p-8 transition-transform duration-700 group-hover:scale-[1.04]"
                 />
               </div>
               <div className="flex items-end justify-between gap-4 px-5 pb-5 lg:px-7 lg:pb-7">
