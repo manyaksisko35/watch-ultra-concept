@@ -5,7 +5,7 @@ export const SPECS: { group: string; rows: [string, string][] }[] = [
       ['Case', 'Titanium (Grade 4), 47 mm'],
       ['Size', '47.4 × 47.1 × 12.1 mm'],
       ['Weight', '60.5 g (without band)'],
-      ['Colors', 'Titanium Gray, Titanium Silver, Titanium White'],
+      ['Colors', 'Titanium Blue, Titanium Silver, Titanium Gray, Titanium White'],
     ],
   },
   {
@@ -21,7 +21,7 @@ export const SPECS: { group: string; rows: [string, string][] }[] = [
     group: 'Performance and battery',
     rows: [
       ['Processor', 'Exynos W1000, 3 nm, 5 cores'],
-      ['Memory', '2 GB RAM, 32 GB storage'],
+      ['Memory', '2 GB RAM, 64 GB storage'],
       ['Battery', '590 mAh'],
       ['Battery life', 'Up to 100 h (Power saving), up to 48 h (Exercise power saving)'],
     ],

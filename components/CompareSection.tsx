@@ -30,7 +30,7 @@ export default function CompareSection() {
         <div className="text-center mb-10 lg:mb-14">
           <p className="sg-eyebrow mb-3 lg:mb-5">Compare</p>
           <h2 className="sg-title">
-            <strong>Watch Ultra</strong> vs Watch7
+            <strong>Watch Ultra</strong> vs Watch9
           </h2>
         </div>
 
@@ -46,20 +46,20 @@ export default function CompareSection() {
         <div className="grid grid-cols-[0.8fr_1fr_1fr] gap-x-3 lg:gap-x-6 pb-3 border-b border-white/15">
           <span />
           <span className="text-sm lg:text-lg font-semibold">Galaxy Watch Ultra</span>
-          <span className="text-sm lg:text-lg font-light text-white/60">Galaxy Watch7</span>
+          <span className="text-sm lg:text-lg font-light text-white/60">Galaxy Watch9</span>
         </div>
         <dl className="divide-y divide-white/10">
           {ROWS.map((r) => (
             <div key={r.label} data-row className="cmp-reveal grid grid-cols-[0.8fr_1fr_1fr] gap-x-3 lg:gap-x-6 py-3 lg:py-4 text-xs lg:text-base">
               <dt className="text-white/45 font-light">{r.label}</dt>
               <dd className={r.up ? 'font-semibold text-orange-300' : 'font-medium'}>{r.ultra}</dd>
-              <dd className="text-white/60 font-light">{r.w7}</dd>
+              <dd className="text-white/60 font-light">{r.w9}</dd>
             </div>
           ))}
         </dl>
         <p className="mt-6 text-xs text-white/40 max-w-3xl">
-          Figures per Samsung. Galaxy Watch7 values cover both sizes where they differ; the gains above compare with
-          the 44 mm model.
+          Galaxy Watch Ultra figures per Samsung (2025 edition). Galaxy Watch9 figures from launch coverage; values cover
+          both sizes where they differ, and the gains above compare with the 44 mm model.
         </p>
       </div>
     </section>

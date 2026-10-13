@@ -10,7 +10,7 @@ const RINGS = [
 const FACTS = [
   { value: '590 mAh', label: 'battery' },
   { value: '3 nm', label: 'Exynos W1000, 5 cores' },
-  { value: '32 GB', label: 'storage, 2 GB RAM' },
+  { value: '64 GB', label: 'storage, 2 GB RAM' },
 ];
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));

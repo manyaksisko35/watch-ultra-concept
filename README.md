@@ -17,8 +17,8 @@ An interactive, scroll-driven product page for the Samsung Galaxy Watch Ultra, b
 - **Dual-frequency GPS:** a simulated run through a city, recorded with L1 only or with L1 + L5, so you can see the track drift between tall buildings.
 - **Built tough:** water, altitude, temperature and MIL-STD-810H in one switcher.
 - **Battery:** rings for 100 h and 48 h that fill as you scroll.
-- **Colors:** pick the case and band colors and spin the watch.
-- **Watch Ultra vs Watch7:** headline gains and a side-by-side spec table.
+- **Colors:** Titanium Blue, Silver, Gray and White, each with its own bezel, band and watch face color.
+- **Watch Ultra vs Watch9:** headline gains and a side-by-side spec table.
 - **Galaxy ecosystem:** links to its sister projects, the [Galaxy S26 Ultra](https://s27-ultra-concept.vercel.app) and [Galaxy Buds4 Pro](https://buds4-pro-concept.vercel.app) concept sites.
 
 ## Screenshots
@@ -34,7 +34,7 @@ An interactive, scroll-driven product page for the Samsung Galaxy Watch Ultra, b
 | ![Built tough](docs/screenshots/desktop-tough.jpg) | ![Battery](docs/screenshots/desktop-battery.jpg) |
 | **Built tough** | **Up to 100 hours** |
 | ![Colors](docs/screenshots/desktop-colors.jpg) | ![Compare](docs/screenshots/desktop-compare.jpg) |
-| **Colors** | **vs Galaxy Watch7** |
+| **Colors** | **vs Galaxy Watch9** |
 
 ### Mobile
 

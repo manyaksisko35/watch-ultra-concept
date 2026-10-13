@@ -18,8 +18,12 @@ function canvasTex(size: number, draw: Draw, srgb = true, h = size) {
   return t;
 }
 
-function drawBezel(ctx: CanvasRenderingContext2D, S: number) {
-  ctx.fillStyle = '#131416';
+export type BezelColors = { bg: string; tick: string; major: string; marker: string };
+
+export const DEFAULT_BEZEL: BezelColors = { bg: '#131416', tick: 'rgba(210,210,210,0.55)', major: ORANGE, marker: ORANGE };
+
+function drawBezel(ctx: CanvasRenderingContext2D, S: number, col: BezelColors = DEFAULT_BEZEL) {
+  ctx.fillStyle = col.bg;
   ctx.fillRect(0, 0, S, S);
   const c = S / 2;
   const k = S / 44;
@@ -29,13 +33,13 @@ function drawBezel(ctx: CanvasRenderingContext2D, S: number) {
     ctx.save();
     ctx.rotate((i / 60) * Math.PI * 2);
     const major = i % 5 === 0;
-    ctx.fillStyle = major ? 'rgba(240,240,240,0.92)' : 'rgba(210,210,210,0.55)';
-    const w = major ? 0.5 : 0.22;
+    ctx.fillStyle = major ? col.major : col.tick;
+    const w = major ? 0.55 : 0.22;
     const h = major ? 2.0 : 1.0;
     ctx.fillRect((-w * k) / 2, -20.6 * k, w * k, h * k);
     ctx.restore();
   }
-  ctx.fillStyle = ORANGE;
+  ctx.fillStyle = col.marker;
   ctx.beginPath();
   ctx.moveTo(0, -18.4 * k);
   ctx.lineTo(-1.1 * k, -20.4 * k);
@@ -43,6 +47,13 @@ function drawBezel(ctx: CanvasRenderingContext2D, S: number) {
   ctx.closePath();
   ctx.fill();
   ctx.restore();
+}
+
+export function bezelTexture(col: BezelColors) {
+  const t = canvasTex(1024, (ctx, S) => drawBezel(ctx, S, col));
+  t.repeat.set(1 / 44, 1 / 44);
+  t.offset.set(0.5, 0.5);
+  return t;
 }
 
 function drawBack(ctx: CanvasRenderingContext2D, S: number) {
@@ -218,6 +229,7 @@ function ribbon(
 export type WatchRig = {
   root: THREE.Group;
   caseMat: THREE.MeshPhysicalMaterial;
+  bezelMat: THREE.MeshPhysicalMaterial;
   band: THREE.Group;
   bandMats: THREE.MeshStandardMaterial[];
   displayMat: THREE.MeshPhysicalMaterial;
@@ -257,9 +269,7 @@ export function buildWatch(faceTex: THREE.Texture, opts: { caseColor?: THREE.Col
     return m;
   };
 
-  const bezelTex = canvasTex(1024, drawBezel);
-  bezelTex.repeat.set(1 / 44, 1 / 44);
-  bezelTex.offset.set(0.5, 0.5);
+  const bezelTex = bezelTexture(DEFAULT_BEZEL);
   const bezelTop = new THREE.MeshPhysicalMaterial({ map: bezelTex, metalness: 0.4, roughness: 0.3, clearcoat: 0.9, clearcoatRoughness: 0.1, envMapIntensity: 0.5 });
   root.add(ring(21.0, 17.7, 1.6, [bezelTop, polished], topZ - 0.3));
   root.add(ring(21.25, 20.9, 1.2, polished, topZ - 0.4, 0.15));
@@ -376,6 +386,7 @@ export function buildWatch(faceTex: THREE.Texture, opts: { caseColor?: THREE.Col
   return {
     root,
     caseMat: titanium,
+    bezelMat: bezelTop,
     band,
     bandMats: [bandFace, bandEdge],
     displayMat,

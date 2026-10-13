@@ -3,14 +3,14 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { RimLight, SoftShadow, StudioEnv } from '@/components/StudioEnv';
-import { BAND_COLORS, CASE_COLORS, applyColors, poseRig, useWatchRig, type Pose } from '@/lib/watchRig';
+import { DEFAULT_VARIANT, VARIANTS, applyVariant, poseRig, useWatchRig, type Pose, type Variant } from '@/lib/watchRig';
 import { createSpin, stepSpin, useDragSpin } from '@/lib/dragSpin';
 import { prefersReducedMotion } from '@/lib/useReducedMotion';
 import { PRICE } from '@/lib/specs';
 
 const spin = createSpin();
 
-function Product({ caseColor, bandColor }: { caseColor: number; bandColor: number }) {
+function Product({ variant }: { variant: Variant }) {
   const rig = useWatchRig();
   const invalidate = useThree((s) => s.invalidate);
   const turn = useRef(0);
@@ -18,9 +18,9 @@ function Product({ caseColor, bandColor }: { caseColor: number; bandColor: numbe
   const frame = useRef<Pose>({ x: 0, y: 0.08, s: 1.3, rx: 0.2, ry: -0.5, rz: 0 });
 
   useEffect(() => {
-    applyColors(rig, caseColor, bandColor);
+    applyVariant(rig, variant);
     invalidate();
-  }, [rig, caseColor, bandColor, invalidate]);
+  }, [rig, variant, invalidate]);
 
   useFrame((_, rawDt) => {
     const dt = Math.min(rawDt, 0.1);
@@ -65,8 +65,7 @@ function Swatches<T extends { id: string; name: string; swatch: string }>(props:
 }
 
 export default function ColorsSection() {
-  const [caseId, setCaseId] = useState<string>(CASE_COLORS[0].id);
-  const [bandId, setBandId] = useState<string>(BAND_COLORS[0].id);
+  const [variantId, setVariantId] = useState<string>(DEFAULT_VARIANT.id);
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -87,8 +86,7 @@ export default function ColorsSection() {
     };
   }, []);
 
-  const cs = CASE_COLORS.find((c) => c.id === caseId) ?? CASE_COLORS[0];
-  const bd = BAND_COLORS.find((c) => c.id === bandId) ?? BAND_COLORS[0];
+  const cur = VARIANTS.find((c) => c.id === variantId) ?? DEFAULT_VARIANT;
 
   return (
     <section ref={sectionRef} id="colors" className="sg-ambient amb-silver relative z-10 bg-[#030303] px-6 lg:px-[8%] py-24 lg:py-32">
@@ -113,7 +111,7 @@ export default function ColorsSection() {
               <ambientLight intensity={0.5} />
               <directionalLight position={[3, 4, 4]} intensity={2} />
               <Suspense fallback={null}>
-                <Product caseColor={cs.color} bandColor={bd.color} />
+                <Product variant={cur} />
               </Suspense>
             </Canvas>
           )}
@@ -122,10 +120,8 @@ export default function ColorsSection() {
 
         <div className="w-full max-w-sm">
           <p className="text-white/50 text-sm mb-1">Galaxy Watch Ultra · 47 mm</p>
-          <p className="text-3xl lg:text-4xl font-semibold">{cs.name}</p>
-          <p className="text-white/55 mb-6">with {bd.name} band</p>
-          <Swatches label="Case" items={CASE_COLORS} value={caseId} onChange={setCaseId} />
-          <Swatches label="Band" items={BAND_COLORS} value={bandId} onChange={setBandId} />
+          <p className="text-3xl lg:text-4xl font-semibold mb-6">{cur.name}</p>
+          <Swatches label="Color" items={VARIANTS} value={variantId} onChange={setVariantId} />
           <div className="flex items-end justify-between border-t border-white/10 pt-5">
             <div>
               <p className="text-white/50 text-sm">Price</p>

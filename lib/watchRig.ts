@@ -3,29 +3,70 @@
 import { useTexture } from '@react-three/drei';
 import { useMemo } from 'react';
 import * as THREE from 'three';
-import { buildWatch, type WatchRig } from '@/lib/watchModel';
+import { bezelTexture, buildWatch, type BezelColors, type WatchRig } from '@/lib/watchModel';
 
 export const FACE_URL = '/face/ultra.webp';
 const MM = 0.03;
 
-export const CASE_COLORS = [
-  { id: 'gray', name: 'Titanium Gray', color: 0x3a3c41, swatch: 'linear-gradient(135deg,#5a5d63,#2b2d31)' },
-  { id: 'silver', name: 'Titanium Silver', color: 0x9a9ea5, swatch: 'linear-gradient(135deg,#d6d9dd,#8d9198)' },
-  { id: 'white', name: 'Titanium White', color: 0xd4d3cd, swatch: 'linear-gradient(135deg,#f4f3ee,#c4c3bc)' },
-] as const;
+type FaceMode = 'dark' | 'blue' | 'white';
 
-export const BAND_COLORS = [
-  { id: 'orange', name: 'Orange', color: 0xe8530c, swatch: '#f0661c' },
-  { id: 'gray', name: 'Dark Gray', color: 0x2c2e33, swatch: '#3a3c42' },
-  { id: 'white', name: 'White', color: 0xe7e5df, swatch: '#ecebe6' },
-] as const;
+export type Variant = {
+  id: string;
+  name: string;
+  swatch: string;
+  caseColor: number;
+  bandColor: number;
+  bezel: BezelColors;
+  face: FaceMode;
+};
 
-export type Rig = WatchRig & { pivot: THREE.Group; bandOpacity: number };
+export const VARIANTS: Variant[] = [
+  {
+    id: 'blue',
+    name: 'Titanium Blue',
+    swatch: 'linear-gradient(135deg,#3d5a86,#22385e)',
+    caseColor: 0xb0b5bb,
+    bandColor: 0x243a63,
+    bezel: { bg: '#1e365e', tick: 'rgba(205,215,235,0.6)', major: '#ff6a12', marker: '#ff6a12' },
+    face: 'blue',
+  },
+  {
+    id: 'silver',
+    name: 'Titanium Silver',
+    swatch: 'linear-gradient(135deg,#d2ccc0,#a39d91)',
+    caseColor: 0xa29c90,
+    bandColor: 0x3b3f44,
+    bezel: { bg: '#141517', tick: 'rgba(215,215,215,0.6)', major: '#f2f2f2', marker: '#f2f2f2' },
+    face: 'dark',
+  },
+  {
+    id: 'gray',
+    name: 'Titanium Gray',
+    swatch: 'linear-gradient(135deg,#6a6b70,#3c3d41)',
+    caseColor: 0x3f4044,
+    bandColor: 0xf0701a,
+    bezel: { bg: '#141517', tick: 'rgba(210,210,210,0.55)', major: '#ff6a12', marker: '#ff6a12' },
+    face: 'dark',
+  },
+  {
+    id: 'white',
+    name: 'Titanium White',
+    swatch: 'linear-gradient(135deg,#f1f2f3,#c3c6ca)',
+    caseColor: 0xc3c6cb,
+    bandColor: 0xe3e1db,
+    bezel: { bg: '#d6d8dc', tick: 'rgba(110,115,122,0.7)', major: '#9fa3a9', marker: '#b9bcc1' },
+    face: 'white',
+  },
+];
 
-export function useWatchRig(caseColor?: number, bandColor?: number): Rig {
+export const DEFAULT_VARIANT = VARIANTS[2];
+
+export type Rig = WatchRig & { pivot: THREE.Group; bandOpacity: number; face: THREE.Texture };
+
+export function useWatchRig(): Rig {
   const face = useTexture(FACE_URL);
   return useMemo(() => {
-    const rig = buildWatch(face, { caseColor, bandColor });
+    const rig = buildWatch(face, { caseColor: DEFAULT_VARIANT.caseColor, bandColor: DEFAULT_VARIANT.bandColor });
     rig.root.scale.setScalar(MM);
     rig.root.position.z = 0.4 * MM;
     const pivot = new THREE.Group();
@@ -34,15 +75,64 @@ export function useWatchRig(caseColor?: number, bandColor?: number): Rig {
       const m = (o as THREE.Mesh).material as THREE.Material | undefined;
       if (m) m.transparent = true;
     });
-    return { ...rig, pivot, bandOpacity: 1 };
-    // Colors are applied afterwards with applyColors, so the model is built once.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return { ...rig, pivot, bandOpacity: 1, face };
   }, [face]);
 }
 
-export function applyColors(rig: Rig, caseColor: number, bandColor: number) {
-  rig.caseMat.color.setHex(caseColor);
-  rig.bandMats.forEach((m) => m.color.setHex(bandColor));
+const bezelCache = new Map<string, THREE.Texture>();
+const faceCache = new Map<string, THREE.Texture>();
+
+function recolorFace(src: THREE.Texture, mode: FaceMode) {
+  const img = src.image as CanvasImageSource & { width: number; height: number };
+  const cv = document.createElement('canvas');
+  cv.width = img.width;
+  cv.height = img.height;
+  const ctx = cv.getContext('2d');
+  if (!ctx) return src;
+  ctx.drawImage(img, 0, 0);
+  const data = ctx.getImageData(0, 0, cv.width, cv.height);
+  const d = data.data;
+  const navy = [26, 47, 88];
+  const light = [236, 237, 239];
+  for (let i = 0; i < d.length; i += 4) {
+    const r = d[i];
+    const g = d[i + 1];
+    const b = d[i + 2];
+    const mx = Math.max(r, g, b);
+    const mn = Math.min(r, g, b);
+    const sat = mx > 0 ? (mx - mn) / mx : 0;
+    const keep = Math.min(1, Math.max(0, (sat - 0.25) / 0.25));
+    const gray = (r + g + b) / 3;
+    for (let c = 0; c < 3; c++) {
+      const v = d[i + c];
+      const t = mode === 'blue' ? navy[c] + gray * (1 - navy[c] / 255) : light[c] - gray * ((light[c] - 34) / 255);
+      d[i + c] = t + (v - t) * keep;
+    }
+  }
+  ctx.putImageData(data, 0, 0);
+  const t = new THREE.CanvasTexture(cv);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = 8;
+  return t;
+}
+
+export function applyVariant(rig: Rig, v: Variant) {
+  rig.caseMat.color.setHex(v.caseColor);
+  rig.bandMats.forEach((m) => m.color.setHex(v.bandColor));
+  let bezel = bezelCache.get(v.id);
+  if (!bezel) {
+    bezel = bezelTexture(v.bezel);
+    bezelCache.set(v.id, bezel);
+  }
+  rig.bezelMat.map = bezel;
+  let face = v.face === 'dark' ? rig.face : faceCache.get(v.face);
+  if (!face) {
+    face = recolorFace(rig.face, v.face);
+    faceCache.set(v.face, face);
+  }
+  rig.displayMat.map = face;
+  rig.displayMat.emissiveMap = face;
+  rig.displayMat.emissiveIntensity = v.face === 'white' ? 0.35 : 0.6;
 }
 
 export function setBandOpacity(rig: Rig, op: number) {
